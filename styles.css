@@ -48,6 +48,11 @@ body{
           transition: 200ms;
           box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.5);
     }
+    @media (max-width: 371px){
+        #mark-spot{
+            font-size: 1rem;
+        }
+    }
     #mark-it{
         color: #ffffff;
         background-color: #78D8A4;
