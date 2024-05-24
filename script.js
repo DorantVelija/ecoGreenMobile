@@ -59,9 +59,10 @@ function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log(position.cords.latitude, position.cords.longitude)
+                console.log(position.coords.latitude, position.coords.longitude)
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
+                console.log(userLat, userLng)
                 addMarker(userLat, userLng, "Your Location", "./Map_pin.svg");
                 map.setCenter({lat: userLat, lng: userLng});
             },
@@ -73,4 +74,5 @@ function getUserLocation() {
         console.error("Geolocation is not supported by this browser.");
     }
 }
+getUserLocation()
 initMap()
