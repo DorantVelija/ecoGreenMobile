@@ -32,8 +32,13 @@ body{
         height: 100vh;
     }
     #map {
-        height: 87vh;
+        height: 88.7vh;
         position: fixed;
+    }
+    @media (max-height: 679px){
+        #map{
+            height: 86vh;
+        }
     }
     #mark-spot{
           color: #ffffff;
@@ -87,6 +92,7 @@ body{
         list-style: none;
         background-color: white;
         padding:2vh;
+        border: 2px solid red;
     }
     li>img{
         height: 50px;
@@ -102,7 +108,7 @@ body{
         justify-content: center;
         left: 10vw;
         right: 10vw;
-        top:40vh;
+        top:20vh;
         border-radius: 20px;
     }
     #mark-spot-form h2{
