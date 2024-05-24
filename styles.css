@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+}
+body{
+    margin: 0;
+}
+#mob-view{
+    display: none;
+}
+#mob-only{
+    display: block;
+}
+@media (max-width: 768px) {
+    h1{
+        margin: 0;
+        text-align: center;
+        padding-top: 20vh;
+        font-weight: 600;
+        font-size: 3rem;
+    }
+    #mob-only{
+        display: none;
+    }
+    #mob-view{
+        display: block;
+        background-image: url("bg.png");
+        background-size: cover;
+        height: 100vh;
+    }
+    #map {
+        height: 100%;
+    }
+    #mark-spot{
+          color: #ffffff;
+          background-color: #78D8A4;
+          font-size: 2rem;
+          padding: 3vh 8vh;
+          bottom: 14vh;
+          left: 10vw;
+          right: 10vw;
+          border: none;
+          border-radius: 15px;
+          position: fixed;
+          z-index: 9;
+          transition: 200ms;
+          box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.5);
+    }
+    #mark-it{
+        color: #ffffff;
+        background-color: #78D8A4;
+        font-size: 2rem;
+        padding: 3vh 8vh;
+        bottom: 14vh;
+        left: 10vw;
+        right: 10vw;
+        border: none;
+        border-radius: 15px;
+        position: fixed;
+        z-index: 9;
+        transition: 200ms;
+        box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.5);
+    }
+    /*#mark-spot:hover{
+        scale: 1.02;
+    }*/
+
+    /*
+*/
+
+    .nav>ul{
+        display: flex;
+        justify-content: space-around;
+        bottom: 0;
+        position: fixed;
+        margin: 0;
+        width: 100vw;
+        list-style: none;
+        background-color: white;
+        padding:2vh;
+    }
+    li>img{
+        height: 50px;
+    }
+    #mark-spot-form{
+        display: none;
+        position: absolute;
+        z-index: 999;
+        background-color: #78D8A4;
+        color: #000;
+        padding: 2vh 10vh 10vh 10vh;
+        flex-direction: column;
+        justify-content: center;
+        left: 10vw;
+        right: 10vw;
+        top:40vh;
+        border-radius: 20px;
+    }
+    #mark-spot-form h2{
+        margin-top: 0;
+        text-align: center;
+
+    }
+    label{
+        color: #ffffff;
+    }
+    ::placeholder{
+        color: white;
+    }
+    #mark-spot-form input{
+        display: block;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
+
+
+
+
+
+}

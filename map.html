@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="script.js"></script>
+</head>
+<body>
+
+<form id="mark-spot-form">
+  <h2 onclick="openMark()">X</h2>
+  <label>Name:</label>
+  <input type="text" name="f-name" id="name" placeholder="Full Name" required>
+  <label>Location:</label>
+  <input type="text" name="l-name" id="location-name" placeholder="Location Name" required>
+  <label>Upload proof picture:</label>
+  <input type="file" name="Upload a picture" id="mark-pic" required>
+  <button id="mark-it" onclick='addMarker(41.99105975359268,20.96118033100552, "Test", "./Map_pin.svg")'>Mark it!</button>
+
+</form>
+<button id="mark-spot" onclick="openMark()">Mark Spot</button>
+<div id="mob-only">
+  MOBILE ONLY
+</div>
+
+
+<div id="mob-view">
+
+  <div id="map"></div>
+
+
+<!-- key  -->
+
+  <nav>
+    <div class="nav">
+      <ul>
+        <a href="index.html"><li>
+          <img src="shape-2.svg">
+        </li></a>
+        <a href="map.html"><li>
+          <img src="locationG.svg">
+        </li></a>
+
+        <a href="profile.html"><li>
+          <img src="shape.svg">
+        </li></a>
+      </ul>
+    </div>
+  </nav>
+
+
+<!--AIzaSyAW7l4uklId3XYGBI9qzR6HPm5ov07wyTk -->
+</div>
+
+
+<script src="script.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAW7l4uklId3XYGBI9qzR6HPm5ov07wyTk&map_ids=17d47ef905ff2859&callback=initMap"></script>
+</body>
+</html>
