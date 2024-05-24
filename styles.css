@@ -6,6 +6,7 @@
 body{
     margin: 0;
     height: 100vh;
+    overflow: hidden;
 }
 #mob-view{
     display: none;
@@ -31,7 +32,7 @@ body{
         height: 100vh;
     }
     #map {
-        height: 89.3vh;
+        height: 92vh;
         position: fixed;
     }
     #mark-spot{
