@@ -1,149 +1,163 @@
-let userLng, userLat
+let userLng, userLat;
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
         (position) => {
             userLat = position.coords.latitude;
             userLng = position.coords.longitude;
+            initMap(); // Call initMap after obtaining the user's location
         },
         (error) => {
             console.error("Error getting user location:", error);
+            initMap(); // Call initMap even if there's an error
         }
     );
 } else {
     console.error("Geolocation is not supported by this browser.");
 }
 
-
-
 let listOfLocations = [
-    {
-        id: "3",
+   /* {
+        id: "2",
         lat: 42.0,
         lng: 21.0
     },
     {
-        id: "4",
-        lat: 42,
-        lng: 21
+        id: "3",
+        lat: 43.0,
+        lng: 21.2
     },
     {
-        id: "5",
+        id: "4",
         lat: 42,
-        lng: 21
-    }
-]
-
-
-/* async function addIMarker(item){
-    addMarker(item.lat, item.lng, "title", item.id)
-}*/
+        lng: 21.21
+    },{
+        id: "5",
+        lat:41.99105975359268,
+        lng:20.96118033100552
+    },
+    {
+        id: "6",
+        lat:41.99507527816197,
+        lng:20.95979890075865
+    },
+    {
+        id: "7",
+        lat:41.990452,
+        lng:20.959771
+    }*/
+];
 
 function initMap() {
-
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: userLat, lng: userLng},
+        center: { lat: userLat, lng: userLng },
         zoom: 16,
         mapId: '74a81578cd95caa6',
-        disableDefaultUI: false,
+        disableDefaultUI: true,
         zoomControl: false,
         streetViewControl: false,
         fullscreenControl: false
 
     });
 
-
-    // "./Map_pin.svg",
-    // lat:41.99105975359268, lng:20.96118033100552
-    // 41.99507527816197, 20.95979890075865
-    // 41.990452, 20.959771
-
-    addMarker(41.99105975359268,20.96118033100552, "Test", "./Map_pin.svg")
-    addMarker(41.99507527816197,20.95979890075865, "Test2", "./Map_pin.svg")
-    addMarker(41.990452,20.959771, "Title", "./Map_pin.svg")
+    listOfLocations.forEach(location => {
+        addMarker(location.lat, location.lng, `Location ${location.id}`, "./Map_pin.svg", location.fullName);
+    });
 }
 
-function addMarker(lat,lng,title,url) {
-    new google.maps.Marker({
-        position: {lat: lat, lng: lng},
-        map,
+function addMarker(lat, lng, title, url, fullName) {
+    const marker = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map: map,
         title: title,
         icon: {
             url: url,
             scaledSize: new google.maps.Size(40, 40)
         }
-    })
+    });
+
+    const infoWindowContent = `
+        <div style='color: #000000; height: 60vh; width: 70vw;'>
+            <h1 style='color: #000000; margin: 0'>${title}</h1>
+            <p style="color: #000000">Name: ${fullName}</p>
+            <p style="color: #000000">Latitude: ${lat}</p>
+            <p style="color: #000000">Longitude: ${lng}</p>
+            <button style="color: black; background-color:#ffffff; padding: 20px; text-align: center ">Clean Spot</button>
+        </div>
+    `;
+
+    const infoWindow = new google.maps.InfoWindow({
+        content: infoWindowContent
+    });
+
+    marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+    });
 }
 
+function openMark() {
+    let o = document.getElementById('mark-spot-form');
+    let p = document.getElementById('mark-spot');
 
-function openMark(){
-    let o = document.getElementById('mark-spot-form')
-    let p = document.getElementById('mark-spot')
-
-    if(o.style.display === 'flex'){
-        o.style.display = 'none'
-        p.style.visibility = 'visible'
+    if (o.style.display === 'flex') {
+        o.style.display = 'none';
+        p.style.visibility = 'visible';
+    } else {
+        o.style.display = 'flex';
+        p.style.visibility = 'hidden';
     }
-    else{
-        o.style.display = 'flex'
-        p.style.visibility = 'hidden'
-    }
-
 }
 
 function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log(position.coords.latitude, position.coords.longitude)
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
-                console.log(userLat, userLng)
                 addMarker(userLat, userLng, "Your Location", "./Map_pin.svg");
-                map.setCenter({lat: userLat, lng: userLng});
+                map.setCenter({ lat: userLat, lng: userLng });
+                initMap(); // Call initMap after obtaining the user's location
             },
             (error) => {
                 console.error("Error getting user location:", error);
+                initMap(); // Call initMap even if there's an error
             }
         );
     } else {
         console.error("Geolocation is not supported by this browser.");
     }
-    initMap()
 }
 
-let apiUrl = 'http://localhost:3000/'
-async function getData() {
-    try {
-        const response = await fetch(apiUrl);
+const apiUrl = 'https://backend-eco-green.vercel.app/';
+
+fetch(apiUrl)
+    .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok ' + response.statusText);
         }
-        const data = await response.json();
-        // Process data
+        return response.json();
+    })
+    .then(data => {
         console.log(data);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
+        listOfLocations = data;
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 
-
-async function markIt(){
-    userLat = position.coords.latitude;
-    userLng = position.coords.longitude;
+async function markIt() {
     navigator.geolocation.getCurrentPosition(
         (position) => {
-            userLat = position.coords.latitude;
-            userLng = position.coords.longitude;
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            addMarker(userLat, userLng, "title", "a");
+            initMap(); // Call initMap after adding the marker
         },
         (error) => {
             console.error("Error getting user location:", error);
+            initMap(); // Call initMap even if there's an error
         }
     );
-    addMarker(userLat, userLng, "title", "a")
-    initMap()
 }
 
-
-getUserLocation()
-getData().then(r => console.log())
+getUserLocation();
