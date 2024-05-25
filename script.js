@@ -134,5 +134,9 @@ async function getData() {
         console.error('Error fetching data:', error);
     }
 }
+
+async function markIt(){
+    getUserLocation()
+}
 getData().then(r => console.log())
 initMap()
