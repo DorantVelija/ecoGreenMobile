@@ -1,13 +1,56 @@
+let userLng, userLat
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            userLat = position.coords.latitude;
+            userLng = position.coords.longitude;
+        },
+        (error) => {
+            console.error("Error getting user location:", error);
+        }
+    );
+} else {
+    console.error("Geolocation is not supported by this browser.");
+}
 
 
 
+
+let listOfLocations = [
+    {
+        id: "3",
+        lat: 42.0,
+        lng: 21.0
+    },
+    {
+        id: "4",
+        lat: 42,
+        lng: 21
+    },
+    {
+        id: "5",
+        lat: 42,
+        lng: 21
+    }
+]
+
+
+async function addIMarker(item){
+    addMarker(item.lat, item.lng, "title", item.id)
+}
 
 function initMap() {
+
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 41.99105975359268, lng: 20.96118033100552},
+        center: {lat: userLat, lng: userLng},
         zoom: 16,
-        mapId: '789a94bf5dcebe8b',
-        disableDefaultUI: true,
+        mapId: '74a81578cd95caa6',
+        disableDefaultUI: false,
+        zoomControl: false,
+        streetViewControl: false,
+        fullscreenControl: false
+
     });
 
 
@@ -22,9 +65,10 @@ function initMap() {
 
 
 
-   // addMarker(41.99105975359268,20.96118033100552, "Test", "./Map_pin.svg")
-   // addMarker(41.99507527816197,20.95979890075865, "Test2", "./Map_pin.svg")
-   // addMarker(41.990452,20.959771, "Title", "./Map_pin.svg")
+    listOfLocations.forEach(addIMarker)
+    addMarker(41.99105975359268,20.96118033100552, "Test", "./Map_pin.svg")
+    addMarker(41.99507527816197,20.95979890075865, "Test2", "./Map_pin.svg")
+    addMarker(41.990452,20.959771, "Title", "./Map_pin.svg")
 }
 
 function addMarker(lat,lng,title,url) {
@@ -73,6 +117,22 @@ function getUserLocation() {
     } else {
         console.error("Geolocation is not supported by this browser.");
     }
+    initMap()
 }
-getUserLocation()
+
+let apiUrl = 'http://localhost:3000/'
+async function getData() {
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Process data
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+getData().then(r => console.log())
 initMap()
