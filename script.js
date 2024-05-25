@@ -100,7 +100,7 @@ function openMark(){
 
 }
 
-/*function getUserLocation() {
+function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -120,7 +120,7 @@ function openMark(){
     }
     initMap()
 }
-*/
+
 let apiUrl = 'http://localhost:3000/'
 async function getData() {
     try {
@@ -135,6 +135,7 @@ async function getData() {
         console.error('Error fetching data:', error);
     }
 }
+
 
 async function markIt(){
     userLat = position.coords.latitude;
@@ -151,5 +152,7 @@ async function markIt(){
     addMarker(userLat, userLng, "title", "a")
     initMap()
 }
+
+
 getData().then(r => console.log())
 window.onload(getUserLocation())
