@@ -16,7 +16,6 @@ if (navigator.geolocation) {
 
 
 
-
 let listOfLocations = [
     {
         id: "3",
@@ -146,5 +145,5 @@ async function markIt(){
 }
 
 
-initMap()
+getUserLocation()
 getData().then(r => console.log())
