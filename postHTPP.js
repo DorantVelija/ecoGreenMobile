@@ -21,6 +21,8 @@ function markIt() {
             .then(data => {
                 console.log(data);
                 document.getElementById('mark-spot-form').style.display = "none";
+                document.getElementById('mark-spot').style.display = 'block';
+                document.getElementById('mark-spot').style.visibility = 'visible';
             })
             .catch(error => {
                 console.error('Error:', error);

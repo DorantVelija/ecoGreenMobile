@@ -95,10 +95,11 @@ function addMarker(lat, lng, title, url, fullName, locationName) {
     });
 
     const infoWindowContent = `
-        <div style='color: #000000; height: 60vh; width: 70vw;'>
-            <form><h1 style='color: #000000; margin: 0'>${title}</h1>
-                <h2 style='color: #000000; margin: 0'>${locationName}</h2>
-                <p style="color: #000000">Created by: ${fullName}</p>
+        <div style='color: #000000; height: 100%; width: 100%; margin: 0; padding: 0'>
+            <form>
+                <h1 style='color: #000000; margin: 0'>${locationName}</h1>
+                <h2 style='color: #000000; margin: 0'>Created by: ${fullName}</h2>
+                <p style="color: #000000"></p>
                 <input type="text" placeholder="Enter your name" style="::placeholder{color:#000000}">
                 <p style="color: #000000">Latitude: ${lat}</p>
                 <p style="color: #000000">Longitude: ${lng}</p>
