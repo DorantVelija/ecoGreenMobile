@@ -61,11 +61,11 @@ function initMap() {
     });
 
     listOfLocations.forEach(location => {
-        addMarker(location.lat, location.lng, `Location ${location.id}`, "./Map_pin.svg", location.fullName);
+        addMarker(location.lat, location.lng, `Location ${location.id}`, "./Map_pin.svg", location.fullName, location.locationName);
     });
 }
 
-function addMarker(lat, lng, title, url, fullName) {
+function addMarker(lat, lng, title, url, fullName, locationName) {
     const marker = new google.maps.Marker({
         position: { lat: lat, lng: lng },
         map: map,
@@ -78,11 +78,14 @@ function addMarker(lat, lng, title, url, fullName) {
 
     const infoWindowContent = `
         <div style='color: #000000; height: 60vh; width: 70vw;'>
-            <h1 style='color: #000000; margin: 0'>${title}</h1>
-            <p style="color: #000000">Name: ${fullName}</p>
-            <p style="color: #000000">Latitude: ${lat}</p>
-            <p style="color: #000000">Longitude: ${lng}</p>
-            <button style="color: black; background-color:#ffffff; padding: 20px; text-align: center ">Clean Spot</button>
+            <form><h1 style='color: #000000; margin: 0'>${title}</h1>
+                <h2 style='color: #000000; margin: 0'>${locationName}</h2>
+                <p style="color: #000000">Created by: ${fullName}</p>
+                <input type="text" placeholder="Enter your name" style="::placeholder{color:#000000}">
+                <p style="color: #000000">Latitude: ${lat}</p>
+                <p style="color: #000000">Longitude: ${lng}</p>
+                <button style="color: black; background-color:#ffffff; padding: 20px; text-align: center ">Clean Spot</button>
+            </form>
         </div>
     `;
 
