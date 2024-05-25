@@ -70,6 +70,7 @@ function initMap() {
     addMarker(41.99507527816197,20.95979890075865, "Test2", "./Map_pin.svg")
     addMarker(41.990452,20.959771, "Title", "./Map_pin.svg")
 }
+initMap()
 
 function addMarker(lat,lng,title,url) {
     new google.maps.Marker({
@@ -99,7 +100,7 @@ function openMark(){
 
 }
 
-function getUserLocation() {
+/*function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -119,7 +120,7 @@ function getUserLocation() {
     }
     initMap()
 }
-
+*/
 let apiUrl = 'http://localhost:3000/'
 async function getData() {
     try {
@@ -136,7 +137,19 @@ async function getData() {
 }
 
 async function markIt(){
-    getUserLocation()
+    userLat = position.coords.latitude;
+    userLng = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            userLat = position.coords.latitude;
+            userLng = position.coords.longitude;
+        },
+        (error) => {
+            console.error("Error getting user location:", error);
+        }
+    );
+    addMarker(userLat, userLng, "title", "a")
+    initMap()
 }
 getData().then(r => console.log())
 window.onload(getUserLocation())
