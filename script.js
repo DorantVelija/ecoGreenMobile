@@ -17,36 +17,54 @@ if (navigator.geolocation) {
 }
 
 let listOfLocations = [
-   /* {
-        id: "2",
-        lat: 42.0,
-        lng: 21.0
-    },
-    {
-        id: "3",
-        lat: 43.0,
-        lng: 21.2
-    },
-    {
-        id: "4",
-        lat: 42,
-        lng: 21.21
-    },{
-        id: "5",
-        lat:41.99105975359268,
-        lng:20.96118033100552
-    },
-    {
-        id: "6",
-        lat:41.99507527816197,
-        lng:20.95979890075865
-    },
-    {
-        id: "7",
-        lat:41.990452,
-        lng:20.959771
-    }*/
+    /* {
+         id: "2",
+         lat: 42.0,
+         lng: 21.0
+     },
+     {
+         id: "3",
+         lat: 43.0,
+         lng: 21.2
+     },
+     {
+         id: "4",
+         lat: 42,
+         lng: 21.21
+     },{
+         id: "5",
+         lat:41.99105975359268,
+         lng:20.96118033100552
+     },
+     {
+         id: "6",
+         lat:41.99507527816197,
+         lng:20.95979890075865
+     },
+     {
+         id: "7",
+         lat:41.990452,
+         lng:20.959771
+     }*/
 ];
+
+
+const apiUrl = 'https://backend-eco-green.vercel.app/';
+
+fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        listOfLocations = data;
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -84,7 +102,7 @@ function addMarker(lat, lng, title, url, fullName, locationName) {
                 <input type="text" placeholder="Enter your name" style="::placeholder{color:#000000}">
                 <p style="color: #000000">Latitude: ${lat}</p>
                 <p style="color: #000000">Longitude: ${lng}</p>
-                <button style="color: black; background-color:#ffffff; padding: 20px; text-align: center ">Clean Spot</button>
+                <button style="color: black; background-color:#ffffff; padding: 20px; text-align: center; margin-left: auto; margin-right: auto; width: 94%; border-radius: 10px">Clean Spot</button>
             </form>
         </div>
     `;
@@ -129,38 +147,6 @@ function getUserLocation() {
     } else {
         console.error("Geolocation is not supported by this browser.");
     }
-}
-
-const apiUrl = 'https://backend-eco-green.vercel.app/';
-
-fetch(apiUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        listOfLocations = data;
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-
-async function markIt() {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            const userLat = position.coords.latitude;
-            const userLng = position.coords.longitude;
-            addMarker(userLat, userLng, "title", "a");
-            initMap(); // Call initMap after adding the marker
-        },
-        (error) => {
-            console.error("Error getting user location:", error);
-            initMap(); // Call initMap even if there's an error
-        }
-    );
 }
 
 getUserLocation();
