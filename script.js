@@ -36,9 +36,9 @@ let listOfLocations = [
 ]
 
 
-async function addIMarker(item){
+/* async function addIMarker(item){
     addMarker(item.lat, item.lng, "title", item.id)
-}
+}*/
 
 function initMap() {
 
@@ -59,18 +59,10 @@ function initMap() {
     // 41.99507527816197, 20.95979890075865
     // 41.990452, 20.959771
 
-
-
-
-
-
-
-    listOfLocations.forEach(addIMarker)
     addMarker(41.99105975359268,20.96118033100552, "Test", "./Map_pin.svg")
     addMarker(41.99507527816197,20.95979890075865, "Test2", "./Map_pin.svg")
     addMarker(41.990452,20.959771, "Title", "./Map_pin.svg")
 }
-initMap()
 
 function addMarker(lat,lng,title,url) {
     new google.maps.Marker({
@@ -154,5 +146,5 @@ async function markIt(){
 }
 
 
+initMap()
 getData().then(r => console.log())
-window.onload(getUserLocation())
