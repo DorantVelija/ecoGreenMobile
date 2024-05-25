@@ -35,11 +35,6 @@ body{
         height: 100%;
         position: fixed;
     }
-    @media (max-height: 679px){
-        #map{
-            height: 86vh;
-        }
-    }
     #mark-spot{
           color: #ffffff;
           background-color: #78D8A4;
