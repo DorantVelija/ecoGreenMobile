@@ -139,4 +139,4 @@ async function markIt(){
     getUserLocation()
 }
 getData().then(r => console.log())
-window.onload(initMap())
+window.onload(getUserLocation())
